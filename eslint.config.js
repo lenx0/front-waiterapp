@@ -12,7 +12,6 @@ export default [
   {
     rules: {
       "react/react-in-jsx-scope": "off", // Disables the need for React in scope for JSX
-      "semi": ["error", "always"]        // Enforces semicolons at the end of lines
     }
   }
 ];
