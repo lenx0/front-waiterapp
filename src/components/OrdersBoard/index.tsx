@@ -1,20 +1,23 @@
 import { useState } from 'react'
+import { toast } from 'react-toastify'
 import { Order } from '../../types/Order.ts'
 import { OrderModal } from '../OrderModal/index.tsx'
 import { Board, OrdersContainer } from './styles.ts'
+import { api } from '../../utils/api.ts'
 
 interface OrdersBoardProps {
   icon: string
   title: string
   orders: Order[]
-  onClose: () => void
+  onCancelOrder: (orderId: string) => void
 }
 
-export function OrdersBoard ({ icon, title, orders }: OrdersBoardProps) {
+export function OrdersBoard({ icon, title, orders, onCancelOrder }: OrdersBoardProps) {
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [selectedOrder, setSelectedOrder] = useState<null | Order>(null);
+  const [isLoading, setIsLoading] = useState(false)
 
-  function handleOpenModal (order : Order) {
+  function handleOpenModal(order: Order) {
     setIsModalVisible(true)
     setSelectedOrder(order)
   }
@@ -24,12 +27,27 @@ export function OrdersBoard ({ icon, title, orders }: OrdersBoardProps) {
     setSelectedOrder(null)
   }
 
+  async function handleCancelOrder() {
+    setIsLoading(true)
+
+    await new Promise(resolve => setTimeout(resolve, 1000))
+    await api.delete(`/orders/${selectedOrder?._id}`)
+
+    toast.success(`O pedido da mesa ${selectedOrder?._id} foi cancelado!`)
+    onCancelOrder(selectedOrder!._id)
+    setIsLoading(false)
+    setIsModalVisible(false)
+  }
+
   return (
     <Board>
       <OrderModal
-      visible={isModalVisible}
-      order={selectedOrder}
-      onClose={handleCloseModal}
+        visible={isModalVisible}
+        order={selectedOrder}
+        onClose={handleCloseModal}
+        onCancelOrder={handleCancelOrder}
+        isLoading={isLoading}
+
       />
       <header>
         <span>{icon}</span>
