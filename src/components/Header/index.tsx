@@ -1,16 +1,11 @@
 import { Container, Content } from './styles.ts'
-import logo from '../../assets/images/logo.svg'
 
-export function Header () {
+export function Header() {
   return (
     <Container>
       <Content>
-        <div className='page-details'>
-          <h1>Pedidos</h1>
-          <h2>Acompanhe os pedidos dos clientes</h2>
-        </div>
-        <img src={logo} alt='WAITERAPP' />
       </Content>
+      <h1>Home</h1>
     </Container>
   )
 }

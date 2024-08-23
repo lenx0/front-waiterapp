@@ -2,8 +2,9 @@ import { useEffect, useState } from 'react'
 import socketIo from 'socket.io-client'
 import { Order } from '../../types/Order.ts'
 import { OrdersBoard } from '../OrdersBoard/index.tsx'
-import { Container } from './styles.ts'
+import { OrdersContainer, SideBarContainer } from './styles.ts'
 import { api } from '../../utils/api.ts'
+import Sidebar from '../Sidebar/index.tsx'
 
 export function Orders() {
   const [orders, setOrders] = useState<Order[]>([])
@@ -42,28 +43,33 @@ export function Orders() {
   }
 
   return (
-    <Container>
-      <OrdersBoard
-        icon="🕰️"
-        title="Fila de espera"
-        orders={waiting}
-        onCancelOrder={handleCancelOrder}
-        onChangeOrderStatus={handleOrderStatusChange}
-      />
-      <OrdersBoard
-        icon="👨‍🍳"
-        title="Em preparação"
-        orders={inProduction}
-        onCancelOrder={handleCancelOrder}
-        onChangeOrderStatus={handleOrderStatusChange}
-      />
-      <OrdersBoard
-        icon="✔️"
-        title="Concluidos"
-        orders={done}
-        onCancelOrder={handleCancelOrder}
-        onChangeOrderStatus={handleOrderStatusChange}
-      />
-    </Container>
+    <>
+      <SideBarContainer>
+        <Sidebar />
+      </SideBarContainer>
+      <OrdersContainer>
+        <OrdersBoard
+          icon="🕰️"
+          title="Fila de espera"
+          orders={waiting}
+          onCancelOrder={handleCancelOrder}
+          onChangeOrderStatus={handleOrderStatusChange}
+        />
+        <OrdersBoard
+          icon="👨‍🍳"
+          title="Em preparação"
+          orders={inProduction}
+          onCancelOrder={handleCancelOrder}
+          onChangeOrderStatus={handleOrderStatusChange}
+        />
+        <OrdersBoard
+          icon="✔️"
+          title="Concluidos"
+          orders={done}
+          onCancelOrder={handleCancelOrder}
+          onChangeOrderStatus={handleOrderStatusChange}
+        />
+      </OrdersContainer>
+    </>
   )
 }
