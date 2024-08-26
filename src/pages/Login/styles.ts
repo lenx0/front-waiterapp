@@ -1,23 +1,34 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
-  background: #d75035;
-  height: 100vh;
+export const LoginContainer = styled.div`
   display: flex;
+  flex-direction: column;
+  background: hsl(0, 0%, 100%);
+  height: 100vh;
   justify-content: center;
   align-items: center;
 `;
 
-export const Content = styled.div`
-  flex-direction: column;
-
-  input {
-    padding: 10px;
-    margin: 10px 0;
-    border: none;
-    border-radius: 4px;
-    font-size: 16px;
-    color: #fff;
-    background: #212121;
-  }
+export const LoginTitleContainer = styled.div`
+  text-align: center;
+  margin: 24px;
 `;
+
+export const LoginFormContainer = styled.form`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0px 20px 20px;
+  gap: 10px;
+`;
+
+export const Input = styled.input`
+  width: 384px;
+  height: 56px;
+  border-radius: 8px;
+  border: 1px solid #cccccc;
+  padding: 20px;
+  gap: 4px;
+`;
+
+

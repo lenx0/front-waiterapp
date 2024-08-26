@@ -7,6 +7,7 @@ import MenuBookIcon from '@mui/icons-material/MenuBook';
 import PeopleIcon from '@mui/icons-material/People';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
+import { Link } from 'react-router-dom';
 
 const SidebarContainer = styled.div`
   width: 80px;
@@ -33,16 +34,17 @@ const Menu = styled.ul`
   padding: 0;
   margin: 0;
   width: 100%;
+
 `;
 
-const MenuItem = styled.li<{ active?: boolean }>`
+const MenuItem = styled.li`
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 15px 0;
   cursor: pointer;
-  color: ${(props) => (props.active ? '#000' : '#666')};
+  color: #666;
 
   &:hover {
     background-color: #f0f0f0;
@@ -50,9 +52,9 @@ const MenuItem = styled.li<{ active?: boolean }>`
   }
 `;
 
-const MenuText = styled.span<{ active?: boolean }>`
+const MenuText = styled.span`
   font-size: 12px;
-  color: ${(props) => (props.active ? 'red' : '#333')};
+  color:#333;
   margin-top: 5px;
 `;
 
@@ -61,30 +63,42 @@ const Sidebar: React.FC = () => {
     <SidebarContainer>
       <Logo>Comanda rápida</Logo>
       <Menu>
-        <MenuItem active>
-          <HomeIcon style={{ color: 'red' }} />
-          <MenuText active>Home</MenuText>
-        </MenuItem>
-        <MenuItem>
-          <HistoryIcon />
-          <MenuText>Histórico</MenuText>
-        </MenuItem>
-        <MenuItem>
-          <MenuBookIcon />
-          <MenuText>Cardápio</MenuText>
-        </MenuItem>
-        <MenuItem>
-          <PeopleIcon />
-          <MenuText>Usuários</MenuText>
-        </MenuItem>
-        <MenuItem>
-          <AccountCircleIcon />
-          <MenuText>Meu Perfil</MenuText>
-        </MenuItem>
-        <MenuItem>
-          <PowerSettingsNewIcon />
-          <MenuText>Sair</MenuText>
-        </MenuItem>
+        <Link to="" style={{ textDecoration: 'none' }}>
+          <MenuItem>
+            <HomeIcon style={{ color: 'red' }} />
+            <MenuText>Home</MenuText>
+          </MenuItem>
+        </Link>
+        <Link to="/history" style={{ textDecoration: 'none' }}>
+          <MenuItem>
+            <HistoryIcon />
+            <MenuText>Histórico</MenuText>
+          </MenuItem>
+        </Link>
+        <Link to="/menu" style={{ textDecoration: 'none' }}>
+          <MenuItem>
+            <MenuBookIcon />
+            <MenuText>Cardápio</MenuText>
+          </MenuItem>
+        </Link>
+        <Link to="/user" style={{ textDecoration: 'none' }}>
+          <MenuItem>
+            <PeopleIcon />
+            <MenuText>Usuários</MenuText>
+          </MenuItem>
+        </Link>
+        <Link to="/profile" style={{ textDecoration: 'none' }}>
+          <MenuItem>
+            <AccountCircleIcon />
+            <MenuText>Meu Perfil</MenuText>
+          </MenuItem>
+        </Link>
+        <Link to="/" style={{ textDecoration: 'none' }}>
+          <MenuItem>
+            <PowerSettingsNewIcon />
+            <MenuText>Sair</MenuText>
+          </MenuItem>
+        </Link>
       </Menu>
     </SidebarContainer>
   );
