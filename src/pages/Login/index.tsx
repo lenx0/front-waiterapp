@@ -5,9 +5,11 @@ import { LoginContainer, LoginFormContainer, LoginTitleContainer } from "./style
 import { validatePassword } from "../../utils/validadePassword";
 import { login } from "../../utils/api";
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from "../../contexts/AuthContext";
 
 
 export function Login() {
+  const { login: authLogin } = useAuth()
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
@@ -32,6 +34,7 @@ export function Login() {
 
     try {
       await login({ email, password });
+      authLogin()
       navigate('/order');
     } catch {
       setSubmitError('Falha ao fazer login. Tente novamente.');

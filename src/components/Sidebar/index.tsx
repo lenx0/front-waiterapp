@@ -1,4 +1,3 @@
-// src/components/Sidebar.tsx
 import React from 'react';
 import styled from 'styled-components';
 import HomeIcon from '@mui/icons-material/Home';
