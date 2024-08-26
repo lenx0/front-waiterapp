@@ -15,44 +15,46 @@ import PrivateRoute from './components/PrivateRoute';
 
 export function App() {
   return (
-    <AuthProvider>
+    <>
       <GlobalStyles />
       <Router>
-        <Routes>
-          <Route path="/" element={<LoginLayout><Login /></LoginLayout>} />
-          <Route
-            path="/order"
-            element={
-              <PrivateRoute element={<DefaultLayout><Orders /></DefaultLayout>} />
-            }
-          />
-          <Route
-            path="/history"
-            element={
-              <PrivateRoute element={<DefaultLayout><History /></DefaultLayout>} />
-            }
-          />
-          <Route
-            path="/menu"
-            element={
-              <PrivateRoute element={<DefaultLayout><Menu /></DefaultLayout>} />
-            }
-          />
-          <Route
-            path="/user"
-            element={
-              <PrivateRoute element={<DefaultLayout><User /></DefaultLayout>} />
-            }
-          />
-          <Route
-            path="/profile"
-            element={
-              <PrivateRoute element={<DefaultLayout><Profile /></DefaultLayout>} />
-            }
-          />
-        </Routes>
+        <AuthProvider>
+          <Routes>
+            <Route path="/" element={<LoginLayout><Login /></LoginLayout>} />
+            <Route
+              path="/order"
+              element={
+                <PrivateRoute element={<DefaultLayout><Orders /></DefaultLayout>} />
+              }
+            />
+            <Route
+              path="/history"
+              element={
+                <PrivateRoute element={<DefaultLayout><History /></DefaultLayout>} />
+              }
+            />
+            <Route
+              path="/menu"
+              element={
+                <PrivateRoute element={<DefaultLayout><Menu /></DefaultLayout>} />
+              }
+            />
+            <Route
+              path="/user"
+              element={
+                <PrivateRoute element={<DefaultLayout><User /></DefaultLayout>} />
+              }
+            />
+            <Route
+              path="/profile"
+              element={
+                <PrivateRoute element={<DefaultLayout><Profile /></DefaultLayout>} />
+              }
+            />
+          </Routes>
+        </AuthProvider>
       </Router>
       <ToastContainer position="bottom-center" />
-    </AuthProvider>
+    </>
   );
 }

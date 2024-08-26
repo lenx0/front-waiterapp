@@ -33,8 +33,10 @@ export function Login() {
     setError(null);
 
     try {
-      await login({ email, password });
-      authLogin()
+      const token = await login({ email, password });
+
+      authLogin(token)
+
       navigate('/order');
     } catch {
       setSubmitError('Falha ao fazer login. Tente novamente.');

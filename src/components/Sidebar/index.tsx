@@ -6,7 +6,8 @@ import MenuBookIcon from '@mui/icons-material/MenuBook';
 import PeopleIcon from '@mui/icons-material/People';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../contexts/AuthContext';
 
 const SidebarContainer = styled.div`
   width: 80px;
@@ -58,6 +59,14 @@ const MenuText = styled.span`
 `;
 
 const Sidebar: React.FC = () => {
+  const { logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate('/', { replace: true });
+  };
+
   return (
     <SidebarContainer>
       <Logo>Comanda rápida</Logo>
@@ -93,7 +102,7 @@ const Sidebar: React.FC = () => {
           </MenuItem>
         </Link>
         <Link to="/" style={{ textDecoration: 'none' }}>
-          <MenuItem>
+          <MenuItem onClick={handleLogout}>
             <PowerSettingsNewIcon />
             <MenuText>Sair</MenuText>
           </MenuItem>
