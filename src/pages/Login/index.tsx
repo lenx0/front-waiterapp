@@ -14,6 +14,11 @@ export function Login() {
   const [submitError, setSubmitError] = useState<string | null>(null);
   const navigate = useNavigate();
 
+  const handleBlur = () => {
+    setError(null);
+    setSubmitError(null);
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -49,6 +54,7 @@ export function Login() {
           placeholder="Seu e-mail de acesso"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          onBlur={handleBlur}
         />
         <label>
           Senha
@@ -58,6 +64,7 @@ export function Login() {
           placeholder="Insira sua senha"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          onBlur={handleBlur}
         />
         {error && <p style={{ color: 'red', fontSize: '14px' }}>{error}</p>}
         {submitError && <p style={{ color: 'red', fontSize: '14px' }}>{submitError}</p>}
