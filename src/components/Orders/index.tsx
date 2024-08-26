@@ -2,9 +2,8 @@ import { useEffect, useState } from 'react'
 import socketIo from 'socket.io-client'
 import { Order } from '../../types/Order.ts'
 import { OrdersBoard } from '../OrdersBoard/index.tsx'
-import { OrdersContainer, SideBarContainer } from './styles.ts'
+import { OrdersContainer } from './styles.ts'
 import { api } from '../../utils/api.ts'
-import Sidebar from '../Sidebar/index.tsx'
 
 export function Orders() {
   const [orders, setOrders] = useState<Order[]>([])
@@ -44,9 +43,6 @@ export function Orders() {
 
   return (
     <>
-      <SideBarContainer>
-        <Sidebar />
-      </SideBarContainer>
       <OrdersContainer>
         <OrdersBoard
           icon="🕰️"
