@@ -71,7 +71,7 @@ const Sidebar: React.FC = () => {
     <SidebarContainer>
       <Logo>Comanda rápida</Logo>
       <Menu>
-        <Link to="" style={{ textDecoration: 'none' }}>
+        <Link to="/order" style={{ textDecoration: 'none' }}>
           <MenuItem>
             <HomeIcon style={{ color: 'red' }} />
             <MenuText>Home</MenuText>
