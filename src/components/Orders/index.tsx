@@ -23,7 +23,7 @@ export function Orders() {
       .then(({ data }) => {
         setOrders(data)
       })
-  }, [orders])
+  }, [])
 
   const waiting = orders.filter((orders) => orders.status === 'WAITING')
   const inProduction = orders.filter((orders) => orders.status === 'IN_PRODUCTION')
