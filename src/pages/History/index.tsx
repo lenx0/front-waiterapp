@@ -4,6 +4,7 @@ import { api } from "../../utils/api";
 import { Order } from "../../types/Order";
 import { formatDate } from "../../utils/formatDate";
 import { statusTranslations } from "../../utils/statusTranslations";
+import { Container, ContainerDetails, OrderQuantity } from "./styles";
 
 const columns = [
   { title: 'Mesa', key: 'table' },
@@ -58,12 +59,20 @@ export function History() {
   };
 
   return (
+    <Container>
+      <ContainerDetails>
+        <h3>Pedidos</h3>
+        <OrderQuantity>
+          <h3>{orders.length}</h3>
+        </OrderQuantity>
+      </ContainerDetails>
     <GenericTable
       columns={columns}
       data={orders}
       onEdit={handleEdit}
       onDelete={handleDelete}
     />
+    </Container>
   );
 };
 

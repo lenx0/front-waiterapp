@@ -7,7 +7,7 @@ export const ContainerDetails = styled.div`
   gap: 5px;
 `;
 
-export const UserQuantity = styled.div`
+export const OrderQuantity = styled.div`
   display: flex;
   text-align: center;
   h3 {
