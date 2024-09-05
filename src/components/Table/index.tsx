@@ -1,20 +1,23 @@
-import { ActionButton, Table, TableCell, TableContainer, TableHeader, TableRow } from './styles';
 import { AiOutlineEye, AiOutlineDelete } from 'react-icons/ai';
-
-interface Column<T> {
+import { ActionButton, Table, TableCell, TableContainer, TableHeader, TableRow } from './styles';
+interface TableColumn {
   title: string;
-  key: keyof T;
-  accessor?: (item: T) => React.ReactNode;
+  key: string;
 }
 
-interface TableProps<T> {
-  columns: Column<T>[];
+interface TableProps<T extends Record<string, any>> {
+  columns: TableColumn[];
   data: T[];
   onEdit?: (item: T) => void;
   onDelete?: (item: T) => void;
 }
 
-const GenericTable = <T extends object>({ columns, data, onEdit, onDelete }: TableProps<T>) => {
+const GenericTable = <T extends Record<string, any>>({
+  columns,
+  data,
+  onEdit,
+  onDelete,
+}: TableProps<T>) => {
   return (
     <TableContainer>
       <Table>
@@ -27,11 +30,11 @@ const GenericTable = <T extends object>({ columns, data, onEdit, onDelete }: Tab
           </TableRow>
         </thead>
         <tbody>
-          {data.map((item, index) => (
-            <TableRow key={index}>
-              {columns.map((column) => (
-                <TableCell key={String(column.key)}>
-                  {column.accessor ? column.accessor(item) : String(item[column.key])}
+          {data.map((item, rowIndex) => (
+            <TableRow key={rowIndex}>
+              {columns.map((column, colIndex) => (
+                <TableCell key={colIndex}>
+                  {item[column.key] !== undefined ? item[column.key] : '-'}
                 </TableCell>
               ))}
               {(onEdit || onDelete) && (
@@ -55,6 +58,5 @@ const GenericTable = <T extends object>({ columns, data, onEdit, onDelete }: Tab
     </TableContainer>
   );
 };
-
 
 export default GenericTable;

@@ -1,7 +1,11 @@
 export interface Order {
+  total: string
   _id: string
   table: string
-  status: 'WAITING' | 'IN_PRODUCTION' | 'DONE'
+  name: string
+  createdAt: string;
+  // status: 'WAITING' | 'IN_PRODUCTION' | 'DONE'
+  status: string
   products: {
     _id: string
     quantity: number
@@ -11,5 +15,5 @@ export interface Order {
       price: number
     }
   }[]
-  createdAt: string;
+
 }

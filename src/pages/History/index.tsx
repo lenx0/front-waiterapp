@@ -3,35 +3,51 @@ import GenericTable from "../../components/Table";
 import { api } from "../../utils/api";
 import { Order } from "../../types/Order";
 import { formatDate } from "../../utils/formatDate";
-
-const statusTranslations: Record<string, string> = {
-  WAITING: 'Aguardando',
-  IN_PREPARATION: 'Em Preparação',
-  DONE: 'Pronto',
-  FINISHED: 'Finalizado'
-};
-
-const calculateTotal = (products: { product: { price: number }, quantity: number }[]) => {
-  return products.reduce((total, item) => {
-    return total + item.product.price * item.quantity;
-  }, 0);
-};
-
+import { statusTranslations } from "../../utils/statusTranslations";
 
 const columns = [
   { title: 'Mesa', key: 'table' },
-  { title: 'Horário', key: 'createdAt', accessor: (item: Order) => formatDate(item.createdAt) },
-  { title: 'Nome', key: 'name', accessor: (item: Order) => item.products[0].product.name },
-  { title: 'Status', key: 'status', accessor: (item: Order) => statusTranslations[item.status] },
-  {
-    title: 'Total',
-    key: 'total',
-    accessor: (item: Order) => `R$ ${calculateTotal(item.products).toFixed(2)}`,
-  }
+  { title: 'Data', key: 'createdAt' },
+  { title: 'Nome', key: 'name' },
+  { title: 'Status', key: 'status' },
+  { title: 'Total', key: 'total' }
 ];
 
+function extractProductNames(order: Order): string {
+  return order.products.map(item => item.product.name).join(', ');
+}
+
+function extractOrderStatus(order: Order): string {
+  return statusTranslations[order.status] || order.status;
+}
+
 export function History() {
-  const [orders, setOrders] = useState<Order[]>([])
+  const [orders, setOrders] = useState<Order[]>([]);
+
+  async function getOrders() {
+    const response = await api.get('/orders');
+    const ordersData: Order[] = response?.data;
+
+    const ordersWithDetails = ordersData.map(order => {
+      const total = order.products.reduce((acc, item) => {
+        return acc + item.product.price * item.quantity;
+      }, 0);
+
+      return {
+        ...order,
+        total: `R$ ${total.toFixed(2)}`,
+        createdAt: formatDate(order.createdAt),
+        name: extractProductNames(order),
+        status: extractOrderStatus(order)
+      };
+    });
+
+    setOrders(ordersWithDetails);
+  }
+
+  useEffect(() => {
+    getOrders()
+  }, [])
 
   const handleEdit = (order: Order) => {
     console.log('Visualizar pedido:', order);
@@ -40,14 +56,6 @@ export function History() {
   const handleDelete = (order: Order) => {
     console.log('Excluir pedido:', order);
   };
-
-  useEffect(() => {
-    api.get('/orders')
-      .then(({ data }) => {
-        setOrders(data)
-        console.log(data)
-      })
-  }, [])
 
   return (
     <GenericTable
@@ -58,3 +66,4 @@ export function History() {
     />
   );
 };
+
