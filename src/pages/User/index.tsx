@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import GenericTable from "../../components/Table";
 import { UserTypes } from "../../types/User";
 import { api } from "../../utils/api";
+import { Container, ContainerDetails, UserQuantity } from "./styles";
 
 const columns = [
   { title: 'Nome', key: 'name' },
@@ -29,11 +30,20 @@ export function User() {
   }, [])
 
   return (
-    <GenericTable
-      columns={columns}
-      data={users}
-      onEdit={handleEdit}
-      onDelete={handleDelete}
-    />
+    <Container>
+      <ContainerDetails>
+        <h3>Usuários</h3>
+        <UserQuantity>
+          <h3>{users.length}</h3>
+        </UserQuantity>
+      </ContainerDetails>
+
+      <GenericTable
+        columns={columns}
+        data={users}
+        onEdit={handleEdit}
+        onDelete={handleDelete}
+      />
+    </Container>
   );
 };
