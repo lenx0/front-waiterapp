@@ -1,25 +1,32 @@
+import { useEffect, useState } from "react";
 import GenericTable from "../../components/Table";
-
-const users = [
-  { id: 1, name: 'Thiago Beraldo', email: 'thiago@example.com', role: 'Admin' },
-  { id: 2, name: 'John Doe', email: 'john@example.com', role: 'User' }
-];
+import { UserTypes } from "../../types/User";
+import { api } from "../../utils/api";
 
 const columns = [
-  { title: 'ID', key: 'id' },
   { title: 'Nome', key: 'name' },
-  { title: 'Email', key: 'email' },
-  { title: 'Role', key: 'role' }
+  { title: 'Usuário', key: 'email' },
+  { title: 'Acesso', key: 'role' }
 ];
 
 export function User() {
-  const handleEdit = (user: any) => {
+  const [users, setUsers] = useState<UserTypes[]>([])
+  const handleEdit = (user: UserTypes) => {
     console.log('Visualizar usuário:', user);
   };
 
-  const handleDelete = (user: any) => {
+  const handleDelete = (user: UserTypes) => {
     console.log('Excluir usuário:', user);
   };
+
+  async function getUsers() {
+    const response = await api.get('/users');
+    setUsers(response.data)
+  }
+
+  useEffect(() => {
+    getUsers()
+  }, [])
 
   return (
     <GenericTable
