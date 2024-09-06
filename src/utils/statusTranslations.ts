@@ -1,6 +1,7 @@
 export const statusTranslations: Record<string, string> = {
+  CANCELED: "Cancelado",
   WAITING: "Aguardando",
-  IN_PREPARATION: "Em Preparação",
+  IN_PRODUCTION: "Em Preparação",
   DONE: "Pronto",
   FINISHED: "Finalizado",
 };

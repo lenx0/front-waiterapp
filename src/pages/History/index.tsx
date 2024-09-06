@@ -29,7 +29,11 @@ export function History() {
     const response = await api.get('/orders');
     const ordersData: Order[] = response?.data;
 
-    const ordersWithDetails = ordersData.map(order => {
+    const filteredOrders = ordersData.filter(order =>
+      order.status === 'CANCELED' || order.status === 'FINISHED'
+    );
+
+    const ordersWithDetails = filteredOrders.map(order => {
       const total = order.products.reduce((acc, item) => {
         return acc + item.product.price * item.quantity;
       }, 0);

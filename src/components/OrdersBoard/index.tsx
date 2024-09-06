@@ -32,8 +32,8 @@ export function OrdersBoard({ icon, title, orders, onCancelOrder, onChangeOrderS
     setIsLoading(true)
 
     const status = selectedOrder?.status === 'WAITING'
-    ? 'IN_PRODUCTION'
-    : 'DONE'
+      ? 'IN_PRODUCTION'
+      : 'DONE'
 
     await api.patch(`/orders/${selectedOrder?._id}`, { status })
 
@@ -46,8 +46,11 @@ export function OrdersBoard({ icon, title, orders, onCancelOrder, onChangeOrderS
   async function handleCancelOrder() {
     setIsLoading(true)
 
-    await new Promise(resolve => setTimeout(resolve, 1000))
-    await api.delete(`/orders/${selectedOrder?._id}`)
+    const status = selectedOrder?.status === 'DONE'
+      ? 'FINISHED'
+      : 'CANCELED'
+
+    await api.patch(`/orders/${selectedOrder?._id}`, { status })
 
     toast.success(`O pedido da mesa ${selectedOrder?.table} foi cancelado!`)
     onCancelOrder(selectedOrder!._id)
